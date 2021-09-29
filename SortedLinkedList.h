@@ -6,8 +6,8 @@
 
 class SortedLinkedList {
     private:
-        ListNode* head;
-        int length;
+        struct ListNode* head;
+        int len;
     public:
         SortedLinkedList();
         ~SortedLinkedList();
