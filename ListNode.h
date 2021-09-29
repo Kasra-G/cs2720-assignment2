@@ -1,11 +1,11 @@
-#include "ItemType.h"
-
 #ifndef ListNode
 #define ListNode
 
-struct ListNode {
+#include "ItemType.h"
 
-   ItemType item;
-   ListNode *next;
+class ListNode {
+    public:
+        ItemType item;
+        ListNode::ListNode* next;
 };
 #endif
