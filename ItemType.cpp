@@ -1,28 +1,24 @@
-class ItemType {
+#include "ItemType.h"
 
-    enum Comparison {GREATER, LESS, EQUAL};
-    ItemType() {
-    
-       
-    }
+ItemType::ItemType() {
 
-    Comparison compareTo(ItemType item) {
-    
-        if (item.getValue() > value) {
-            return GREATER;
-        } else if (item.getValue() < value) {
-            return LESS;
-        } else {
-            return EQUAL;
-        }
-    }
+   
+}
 
-    int getValue() const {
-        return value;
-    }
-    void initialize(int num) {
-        
-        value = num;
-    }
+ItemType::Comparison ItemType::compareTo(ItemType item) {
 
+    if (item.getValue() > value) {
+        return GREATER;
+    } else if (item.getValue() < value) {
+        return LESS;
+    } else {
+        return EQUAL;
+    }
+}
+
+int ItemType::getValue() const {
+    return value;
+}
+void initialize(int num) { 
+    value = num;
 }
