@@ -1,3 +1,5 @@
+#ifndef ITEMTYPE
+#define ITEMTYPE
 class ItemType {
     
     enum Comparison {GREATER, LESS, EQUAL};
@@ -9,3 +11,4 @@ class ItemType {
         int getValue() const;
         void initialize(int num);
 };
+#endif
