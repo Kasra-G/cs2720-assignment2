@@ -8,14 +8,13 @@ ItemType::ItemType() {
 ItemType::Comparison ItemType::compareTo(ItemType item) {
 
     ItemType::Comparison comp;
-    if (item.getValue() > value) {
-        comp = GREATER;
-    } else if (item.getValue() < value) {
-        comp = LESS;
+    if (value > item.getValue()) {
+        return GREATER;
+    } else if (value < item.getValue()) {
+        return LESS;
     } else {
-        comp = EQUAL;
+        return EQUAL;
     }
-    return comp;
 }
 
 int ItemType::getValue() const {
