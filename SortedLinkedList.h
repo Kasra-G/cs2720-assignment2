@@ -7,6 +7,7 @@
 class SortedLinkedList {
     private:
         struct ListNode* head;
+        struct ListNode* currentPos;
         int len;
     public:
         SortedLinkedList();
