@@ -38,7 +38,7 @@ void SortedLinkedList::insertItem(ItemType item) {
     }
 
     while (location != NULL) {
-        if (item.compareTo(location->item) == GREATER) {
+        if (item.compareTo(location->item) == LESS) {
             break;
         } if (item.compareTo(location->item) == EQUAL) {
             cout << "Sorry. You cannot insert the duplicate item" << endl;
