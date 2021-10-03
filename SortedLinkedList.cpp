@@ -1,5 +1,4 @@
 #include "SortedLinkedList.h"
-#include "ItemType.h"
 #include <cstddef>
 #include <iostream>
 
@@ -7,12 +6,12 @@ using namespace std;
 
 SortedLinkedList::SortedLinkedList() {
     head = NULL;
-    len = 0;
     currentPos = head;
+    len = 0;
 }
 
 SortedLinkedList::~SortedLinkedList() {
-    struct ListNode* temp;
+    ListNode* temp;
     while (head != NULL) {
         temp = head;
         head = head->next;
@@ -26,21 +25,20 @@ int SortedLinkedList::length() const{
 
 void SortedLinkedList::insertItem(ItemType item) {  
     bool moreToSearch;
-    struct ListNode *temp;
-    struct ListNode *prevloc;
-    struct ListNode *location = head;
+    ListNode* location = head;
 
-    if (length == 0) {
+    if (len == 0) {
         temp->item = item;
-        head = item;
-        length += 1;
+        head = temp;
+        len += 1;
         return;
     }
 
+    ListNode* prevloc;
     while (location != NULL) {
-        if (item.compareTo(location->item) == LESS) {
+        if (item.compareTo(location->item) == ItemType::LESS) {
             break;
-        } if (item.compareTo(location->item) == EQUAL) {
+        } if (item.compareTo(location->item) == ItemType::EQUAL) {
             cout << "Sorry. You cannot insert the duplicate item" << endl;
             return;
         }
@@ -48,6 +46,13 @@ void SortedLinkedList::insertItem(ItemType item) {
         location = location->next;
     }
 
+    ListNode* temp = new ListNode;
+
+    //NEEDS WORK HERE! 
+    //If location is null, that means item must be inserted at the end of the list
+    //If location is not null, then item must be inserted somewhere in the middle.
+
+    /*
     temp->item = item;
     if (location == head) {
         temp->next = head;
@@ -56,7 +61,8 @@ void SortedLinkedList::insertItem(ItemType item) {
         temp->next = location->next;
         prevloc->next = temp;
     }
-    length += 1; 
+    len += 1; 
+    */
 }
 
 int SortedLinkedList::searchItem(ItemType item) {
@@ -65,7 +71,7 @@ int SortedLinkedList::searchItem(ItemType item) {
     struct ListNode *location = head;
 
     while (location != NULL) {
-        if (item.compareTo(location->item) == EQUAL) {
+        if (item.compareTo(location->item) == ItemType::EQUAL) {
             return index;
         }
         location = location->next;

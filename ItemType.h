@@ -2,10 +2,10 @@
 #define ITEMTYPE
 class ItemType {
     
-    enum Comparison {GREATER, LESS, EQUAL};
     private:
         int value;
     public:
+        enum Comparison {GREATER, LESS, EQUAL};
         ItemType();
         Comparison compareTo(ItemType item);
         int getValue() const;
