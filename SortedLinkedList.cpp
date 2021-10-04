@@ -4,7 +4,7 @@
 
 using namespace std;
 
-/**
+/*
  * Constructor for SortedLinkedList.
  */
 SortedLinkedList::SortedLinkedList() {
@@ -139,6 +139,9 @@ int SortedLinkedList::searchItem(ItemType item) {
     return -1;
 }
 
+/*
+ * Gets the next item for an Iterator.
+ */
 ItemType SortedLinkedList::getNextItem() {
     ListNode* temp = currentPos;
     if (head == NULL) {
@@ -211,6 +214,8 @@ void SortedLinkedList::deleteAlternates() {
  * Prints out a list containing the common elements between the two lists.
  */
 void SortedLinkedList::intersection(SortedLinkedList* other) {
+
+    //build a new list
     SortedLinkedList newList;
     for (int i = 0; i < other->length(); i++) {
         ListNode* temp = other->getNode(i);
@@ -219,11 +224,13 @@ void SortedLinkedList::intersection(SortedLinkedList* other) {
         }
     }
 
+    //delete old list
     while (head != NULL) {
         deleteItem(head->item);
     }
     resetList();
 
+    //replace this list with new list
     for (int i = 0; i < newList.length(); i++) {
         insertItem(newList.getNextItem());
     }
