@@ -9,7 +9,7 @@ SortedLinkedList.cpp
 Kasra - SortedLinkedList.h, SortedLinkedList.cpp, main.cpp, Makefile
 
 How to Compile: make
-How to Run: main
+How to Run: ./main input.txt
 
 Merge Function:
 
