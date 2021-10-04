@@ -4,12 +4,18 @@
 
 using namespace std;
 
+/*
+ * Constructor for SortedLinkedList.
+ */
 SortedLinkedList::SortedLinkedList() {
     head = NULL;
     currentPos = head;
     len = 0;
 }
 
+/**
+ * Destructor for SortedLinkedList.
+ */
 SortedLinkedList::~SortedLinkedList() {
     ListNode* temp;
     while (head != NULL) {
@@ -19,10 +25,16 @@ SortedLinkedList::~SortedLinkedList() {
     }
 }
 
+/**
+ * Returns the length of the list.
+ */
 int SortedLinkedList::length() const{
     return len;
 }
 
+/**
+ * Inserts a given item into the list as long as the item is not already present in the list.
+ */
 void SortedLinkedList::insertItem(ItemType item) {  
     ListNode* location = head;
     ListNode* temp = new ListNode;
@@ -30,12 +42,12 @@ void SortedLinkedList::insertItem(ItemType item) {
     if (len == 0) {
         temp->item = item;
         head = temp;
-        len += 1;
         currentPos = head;
+        len += 1;
         return;
     }
     
-    ListNode* prevloc;
+    ListNode* prevloc = NULL;
     while (location != NULL) {
         if (item.compareTo(location->item) == ItemType::LESS) {
             break;
@@ -48,25 +60,19 @@ void SortedLinkedList::insertItem(ItemType item) {
         location = location->next;
     }
 
-
-    //NEEDS WORK HERE! 
-    //If location is null, that means item must be inserted at the end of the list
-    //If location is not null, then item must be inserted somewhere in the middle.
-
     temp->item = item;
-    if (location == head) {
-        temp->next = head;
-        head = temp; 
-        currentPos = head;
-    } else if (location == NULL) {
-        temp = prevloc->next;
-    } else {
-        temp->next = location->next;
+    temp->next = location;
+    if (prevloc != NULL) {
         prevloc->next = temp;
+    } else {
+        head = temp;
     }
     len += 1; 
 }
 
+/**
+ * Deletes specified item from the list if it exists in the list.
+ */
 void SortedLinkedList::deleteItem(ItemType item) {
     ListNode *location = head;  
     ListNode *prevloc;
@@ -81,6 +87,7 @@ void SortedLinkedList::deleteItem(ItemType item) {
             delete temp;
             head = NULL;
             currentPos = head;
+            len--;
         } else {
             cerr << "Item not found." << endl;
         }
@@ -109,13 +116,19 @@ void SortedLinkedList::deleteItem(ItemType item) {
         prevloc->next = temp;
         delete location;
     }
+    len--;
 }
 
+/**
+ * Searches through the list for specified item.
+ */
 int SortedLinkedList::searchItem(ItemType item) {
     int index = 0;
-    int i = -1;
     ListNode *location = head;
 
+    if (location == NULL) {
+        return -1;
+    }
     while (location != NULL) {
         if (item.compareTo(location->item) == ItemType::EQUAL) {
             return index;
@@ -123,37 +136,52 @@ int SortedLinkedList::searchItem(ItemType item) {
         location = location->next;
         index++;
     }
-    return i;
+    return -1;
 }
 
+/*
+ * Gets the next item for an Iterator.
+ */
 ItemType SortedLinkedList::getNextItem() {
+    ListNode* temp = currentPos;
     if (head == NULL) {
         cerr << "List is empty" << endl;
         ItemType i;
         return i;
     } else if (currentPos == NULL) {
         cerr << "The end of the list has been reached" << endl;
+        ItemType i;
         currentPos = head;
+        return i;
     } else {
         currentPos = currentPos->next;
     }
 
-    return currentPos->item;
+    return temp->item;
 }
 
+/**
+ * Resets the list.
+ */
 void SortedLinkedList::resetList() {
     currentPos = head;
 }
 
+/**
+ * Gets the ListNode at the given index.
+ */
 ListNode* SortedLinkedList::getNode(int i) {
     ListNode* temp = head;
-    while (i != 0 || temp != NULL) {
+    while (i != 0 && temp != NULL) {
         temp = temp->next;
         i--;
     }
     return temp;
 }
 
+/**
+ * Merges one list with the other list.
+ */
 void SortedLinkedList::merge(SortedLinkedList* other) {
     for (int i = 0; i < other->length(); i++) {
         if (searchItem(other->getNode(i)->item) != -1) {
@@ -167,21 +195,45 @@ void SortedLinkedList::merge(SortedLinkedList* other) {
     }
 }
 
+/**
+ * Deletes every second node in the list.
+ */
 void SortedLinkedList::deleteAlternates() {
     ListNode* temp = head;
+    int count = 0;
     while (temp != NULL) {
-        temp = temp->next;
-        if (temp != NULL) {
+        if (count % 2 == 1) {
             deleteItem(temp->item);
         }
+        temp = temp->next;
+        count++;
     }
 } 
 
+/**
+ * Prints out a list containing the common elements between the two lists.
+ */
 void SortedLinkedList::intersection(SortedLinkedList* other) {
+
+    //build a new list
+    SortedLinkedList newList;
     for (int i = 0; i < other->length(); i++) {
         ListNode* temp = other->getNode(i);
         if (searchItem(temp->item) != -1) {
-            deleteItem(temp->item);
+            newList.insertItem(temp->item);
         }
     }
+
+    //delete old list
+    while (head != NULL) {
+        deleteItem(head->item);
+    }
+    resetList();
+
+    //replace this list with new list
+    for (int i = 0; i < newList.length(); i++) {
+        insertItem(newList.getNextItem());
+    }
+    
+    
 }
