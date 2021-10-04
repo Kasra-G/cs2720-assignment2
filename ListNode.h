@@ -1,11 +1,11 @@
-#include "ItemType.h"
+#ifndef LISTNODE
+#define LISTNODE
 
-#ifndef ListNode
-#define ListNode
+#include "ItemType.h"
+#include <cstddef>
 
 struct ListNode {
-
-   ItemType item;
-   ListNode *next;
+    ItemType item;
+    ListNode* next = NULL;
 };
 #endif
