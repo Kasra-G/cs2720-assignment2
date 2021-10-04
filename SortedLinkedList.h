@@ -8,6 +8,7 @@ class SortedLinkedList {
     private:
         ListNode* head;
         ListNode* currentPos;
+        ListNode* getNode(int i);
         int len;
     public:
         SortedLinkedList();
@@ -18,8 +19,8 @@ class SortedLinkedList {
         int searchItem(ItemType item);
         ItemType getNextItem();
         void resetList();
-        void merge();
+        void merge(SortedLinkedList* other);
         void deleteAlternates();
-        void intersect();
+        void intersection(SortedLinkedList* other);
 };
 #endif

@@ -2,9 +2,10 @@
 #define LISTNODE
 
 #include "ItemType.h"
+#include <cstddef>
 
 struct ListNode {
     ItemType item;
-    ListNode* next;
+    ListNode* next = NULL;
 };
 #endif
