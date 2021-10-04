@@ -30,8 +30,8 @@ void SortedLinkedList::insertItem(ItemType item) {
     if (len == 0) {
         temp->item = item;
         head = temp;
-        len += 1;
         currentPos = head;
+        len += 1;
         return;
     }
     
@@ -54,16 +54,8 @@ void SortedLinkedList::insertItem(ItemType item) {
     //If location is not null, then item must be inserted somewhere in the middle.
 
     temp->item = item;
-    if (location == head) {
-        temp->next = head;
-        head = temp; 
-        currentPos = head;
-    } else if (location == NULL) {
-        temp = prevloc->next;
-    } else {
-        temp->next = location->next;
-        prevloc->next = temp;
-    }
+    temp->next = location;
+    prevloc->next = temp;
     len += 1; 
 }
 
@@ -127,18 +119,21 @@ int SortedLinkedList::searchItem(ItemType item) {
 }
 
 ItemType SortedLinkedList::getNextItem() {
+    ListNode* temp = currentPos;
     if (head == NULL) {
         cerr << "List is empty" << endl;
         ItemType i;
         return i;
     } else if (currentPos == NULL) {
         cerr << "The end of the list has been reached" << endl;
+        ItemType i;
         currentPos = head;
+        return i;
     } else {
         currentPos = currentPos->next;
     }
 
-    return currentPos->item;
+    return temp->item;
 }
 
 void SortedLinkedList::resetList() {
